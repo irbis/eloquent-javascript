@@ -137,3 +137,70 @@ for (let i = 0; i < boardSize; i++)
     else              board = board + whiteCell + boardFixedPart + eol
 
 console.log(board)
+
+// functions
+const square = function(x) {
+    return x * x
+}
+
+// in case of declare with 'function':
+console.log("The future says:", future()) // with usage of 'function' functions interrepts before main program block
+
+function future() {
+    return "You'll never have flying cars"
+}
+
+// definition with =>, almost the same as with usage of 'function'
+const power = (base, exponent) => {
+    let result = 1
+    for (let count = 0; count < exponent; count++) {
+        result *= base
+    }
+
+    return result
+}
+
+const square1 = (x) => { return x * x }
+const square2 = x => x * x
+const horn = () => {
+    console.log("Toot")
+}
+
+// arguments and optional arguments
+function minus(a, b) {
+    if (b === undefined) return -a
+    else return a - b
+}
+
+console.log(minus(4)) // parameter b has value 'undefined'
+console.log(minus(6, 2))
+console.log(minus(6, 3, 7)) // third parameter is ignored
+
+function power2(base, exponent = 2) {
+    let result = 1
+    for (let count = 0; count < exponent; count++)
+        result *= base
+
+    return result
+}
+
+console.log(power2(4)) // power2(4, 2) - in fact
+console.log(power2(2, 6))
+
+// closure
+function wrapValue(n) {
+    let local = n
+    return () => local
+}
+
+let wrap1 = wrapValue(1)
+let wrap2 = wrapValue(2)
+console.log(wrap1())
+console.log(wrap2())
+
+function mulpiplier(factor) {
+    return number => number * factor
+}
+
+let twice = mulpiplier(2)
+console.log(twice(5))
