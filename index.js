@@ -138,19 +138,32 @@ for (let i = 0; i < boardSize; i++)
 
 console.log(board)
 
-// functions
+// ******************** functions ************************* 
+// interepts by definition - can be useful in case to define a local functions, for instance inside if conditions
 const square = function(x) {
     return x * x
 }
 
 // in case of declare with 'function':
-console.log("The future says:", future()) // with usage of 'function' functions interrepts before main program block
+// functions that will be interrepted before running the first line of code (main program block)
+console.log("The future says:", future()) 
 
 function future() {
     return "You'll never have flying cars"
 }
 
-// definition with =>, almost the same as with usage of 'function'
+// arrow functions - definition with =>, almost the same as with usage of 'function'
+/*
+   definition structure:
+   ([param1, [param2, [...]]]) => {
+       statements
+   }
+
+   definition variants:
+      1. (param1, param2, param3, ..., paramN) => expression
+      2. singleParam => { statements } or singleParam => expression
+      3. () => { statements } or () => expression
+*/
 const power = (base, exponent) => {
     let result = 1
     for (let count = 0; count < exponent; count++) {
@@ -187,7 +200,7 @@ function power2(base, exponent = 2) {
 console.log(power2(4)) // power2(4, 2) - in fact
 console.log(power2(2, 6))
 
-// closure
+// ********** closure **********
 function wrapValue(n) {
     let local = n
     return () => local
