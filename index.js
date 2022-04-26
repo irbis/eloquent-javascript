@@ -163,6 +163,14 @@ function future() {
       1. (param1, param2, param3, ..., paramN) => expression
       2. singleParam => { statements } or singleParam => expression
       3. () => { statements } or () => expression
+
+   arrow functions calculates during code execution, not before running the program
+   as functions that were defined with 'function name ...'. So it's not possible to
+   have the following part of code:
+
+       plusFunc (2,2)
+       const plusFunc = (x, y) => x + y
+
 */
 const power = (base, exponent) => {
     let result = 1
