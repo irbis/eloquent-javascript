@@ -209,13 +209,14 @@ console.log(power2(4)) // power2(4, 2) - in fact
 console.log(power2(2, 6))
 
 // ********** closure **********
+// exits because works in environment that were created, not the environment in which it is called
 function wrapValue(n) {
     let local = n
     return () => local
 }
 
-let wrap1 = wrapValue(1)
-let wrap2 = wrapValue(2)
+let wrap1 = wrapValue(1) // function that always returns 1
+let wrap2 = wrapValue(2) // function that always returns 2
 console.log(wrap1())
 console.log(wrap2())
 
@@ -223,5 +224,13 @@ function mulpiplier(factor) {
     return number => number * factor
 }
 
-let twice = mulpiplier(2)
+let twice = mulpiplier(2) // function that multiplues parameter by 2
+console.log(twice(5))
+
+/* Equavalent of previous 6 lines */
+const twiceOpt2 = function (number) {
+    const factor = 2         // environment which were created
+    return number * factor
+}
+/* lost of flexibility */
 console.log(twice(5))
