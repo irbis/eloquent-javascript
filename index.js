@@ -261,3 +261,43 @@ function findSolution(target) {
 }
 
 console.log(findSolution(24))
+
+
+// ********** Exercises **********
+
+// returns minimum of two numbers
+function min(p1, p2) {
+    return p1 <= p2 ? p1 : p2
+}
+
+console.log(min (2, 5))
+
+// return true if number is even, otherwise - false
+function isEven (number) {
+    const isEvenRec = (number) => {
+        if      (number == 0) return true
+        else if (number == 1) return false
+        else                  return isEvenRec(number % 2)
+    }
+
+    return isEvenRec(number < 0 ? -number : number)
+}
+
+console.log(`isEven for 50 is ${isEven(50)}`)
+console.log(`isEven for 75 is ${isEven(75)}`)
+console.log(`isEven for -1 is ${isEven(-1)}`)
+
+// bean counting
+// str - source string
+// symb - case sensitive symbol to count number of, default is 'B'
+function countChar(str, symb = 'B') {
+    let count = 0
+    
+    for (let i = 0; i < str.length; i++)
+        if (str[i] === symb) count = count + 1
+
+    return count
+}
+
+console.log(`countChar for "Baker" is ${countChar("Baker")}`)
+console.log(`countChar of a for "Baker" is ${countChar("Baker", "a")}`)
