@@ -1,3 +1,8 @@
+const JOURNAL = require('./journal.js')
+
+// data from the book
+require('./journal.js')
+
 // ********** Arrays **********
 let listOfNumbers = [2, 3, 5, 7, 11]
 
@@ -93,3 +98,88 @@ function phi(table) {
                (table[0] + table[2]))
 }
 console.log(phi([76, 9, 4, 1]))
+
+function tableFor(event, journal) {
+  let table = [0, 0, 0, 0]
+
+  for (let entry of journal) {
+    let index = 0
+    if (entry.events.includes(event)) index += 1
+    if (entry.squirrel) index += 2
+    table[index] += 1
+  }
+
+  return table
+}
+
+console.log(tableFor("pizza", JOURNAL))
+
+function journalEvents(journal) {
+  let events = []
+
+  for (let entry of journal) {
+    for (let event of entry.events) {
+      if (!events.includes(event)) {
+        events.push(event)
+      }
+    }
+  }
+
+  return events
+}
+
+console.log(journalEvents(JOURNAL))
+for (let event of journalEvents(JOURNAL)) {
+  console.log(event + ":", phi(tableFor(event, JOURNAL)))
+}
+
+console.log("--------------- Filtered correlation ---------------")
+for (let event of journalEvents(JOURNAL)) {
+  let correlation = phi(tableFor(event, JOURNAL))
+  if (correlation > 0.1 || correlation < -0.1) 
+    console.log(event + ":", phi(tableFor(event, JOURNAL)))
+}
+
+console.log("--------------- Peanuts, Brushed teeth ---------------")
+for (let entry of JOURNAL) {
+  if (entry.events.includes("peanuts") &&
+    !entry.events.includes("brushed teeth")) {
+      entry.events.push("peanut teeth")
+    }
+}
+console.log(phi(tableFor("peanut teeth", JOURNAL)))
+
+/*
+  Several useful methods of array: push, pop - add/remove from the end
+ */
+let todoList = []
+// put task to the tail
+function remember(task) {
+  todoList.push(task)
+}
+// extract task from the start of an array
+function getTask() {
+  return todoList.shift()
+}
+// put task to the head of an array
+function rememberUrgently(task) {
+  todoList.unshift(task)
+}
+
+remember("task1")
+remember("task2")
+remember("task3")
+remember("task4")
+console.log(todoList)
+
+console.log(getTask())
+console.log(todoList)
+
+rememberUrgently("urgentTask")
+console.log(todoList)
+
+// array indexOf() and lastIndexOf() methods
+// there is a second optional parameter that indicates
+// where to start searching
+console.log([1, 2, 3, 2, 1].indexOf(2)) // --> will return 2
+console.log([1, 2, 3, 2, 1].lastIndexOf(2)) // --> will return 3
