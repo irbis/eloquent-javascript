@@ -211,3 +211,19 @@ console.log(max(...numbers)) // spread array to variable amount of parameters
 
 words = ["never", "fully"]
 console.log(["will", ...words, "understand"])
+
+function phi1([n00, n01, n10, n11]) {
+  return (n11 * n00 - n10 * n01) /
+  Math.sqrt(
+    (n10 + n11) * (n00 + n01) *
+    (n01 + n11) * (n00 + n10))
+}
+console.log(phi1([76, 9, 4, 1])) // bind array
+
+let {name} = {name: "Faraji", age: 23}
+console.log(name)
+
+// JSON as a method to transfer objects
+let string = JSON.stringify({squirrel: false, events:["weekend"]})
+console.log(string)
+console.log(JSON.parse(string).events)
