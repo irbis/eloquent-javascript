@@ -181,3 +181,33 @@ console.log(todoList)
 // where to start searching
 console.log([1, 2, 3, 2, 1].indexOf(2)) // --> will return 2
 console.log([1, 2, 3, 2, 1].lastIndexOf(2)) // --> will return 3
+
+console.log("coconuts".slice(4, 7))
+console.log("coconut".indexOf('u'))
+console.log("one two three".indexOf("ee")) // to compare to arrays string allow to search substring
+
+console.log("  okay \n".trim())
+console.log(String(6).padStart(3, "0"))
+
+let sentence = "Secretarybirds specialize in stomping"
+let words = sentence.split(" ")
+console.log(words)
+console.log(words.join('.')) // join array of string to one string
+console.log("LA".repeat(3))
+
+// functions with variable amount of parameters
+function max(...numbers) {
+  let result = -Infinity
+  for (let number of numbers) 
+    if (number > result) result = number
+  
+  return result
+}
+
+console.log(max(4, 1, 9, -2))
+
+let numbers = [5, 1, 7]
+console.log(max(...numbers)) // spread array to variable amount of parameters
+
+words = ["never", "fully"]
+console.log(["will", ...words, "understand"])
