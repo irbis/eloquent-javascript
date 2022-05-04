@@ -227,3 +227,70 @@ console.log(name)
 let string = JSON.stringify({squirrel: false, events:["weekend"]})
 console.log(string)
 console.log(JSON.parse(string).events)
+
+/* *************** Exercises *************** */
+// The Sum of a range
+
+/*
+   start - start of sequence
+   end - end of sequence
+   inc - delta between elements can be:
+      - negative to create sequence in a back order
+      - absent default value is 1
+ */
+function range(start, end, inc = 1) {
+  let result = []
+
+  if (inc > 0)
+    for (let i = start; i <= end; i += inc) result.push(i)
+  else 
+    for (let i = start; i >= end; i += inc) result.push(i)
+
+  return result
+}
+
+/*
+   Sum all elements in array
+*/
+function sum(arr) {
+  if (arr) { // <-- not a good and can cause errors :(
+    let result = 0
+    for (let e of arr) result += e
+    return result
+  } else {
+    return undefined
+  }
+}
+
+console.log(range(1, 5))
+console.log(range(0, 10, 2))
+console.log(range(10, 0, -2))
+
+console.log(sum(range(1, 10)))
+console.log(sum())
+
+// Reversing an array
+function reverseArray(arr) {
+  let rArr = []
+  for (let e of arr) rArr.unshift(e)
+  return rArr
+}
+
+function reverseArrayInPlace(arr) {
+  let headRunner = 0
+  let tailRunner = arr.length - 1
+
+  while (headRunner < tailRunner) {
+    let buf = arr[headRunner]
+    arr[headRunner] = arr[tailRunner]
+    arr[tailRunner] = buf
+    headRunner += 1
+    tailRunner -= 1
+  }
+
+  return arr
+}
+
+console.log(reverseArray([0, 1, 2, 3, 4]))
+console.log(reverseArrayInPlace([0, 1, 2, 3, 4]))
+console.log(reverseArrayInPlace([0, 1, 2, 3]))
