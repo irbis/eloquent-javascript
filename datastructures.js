@@ -1,5 +1,3 @@
-const JOURNAL = require('./journal.js')
-
 // data from the book
 require('./journal.js')
 
