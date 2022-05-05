@@ -294,3 +294,52 @@ function reverseArrayInPlace(arr) {
 console.log(reverseArray([0, 1, 2, 3, 4]))
 console.log(reverseArrayInPlace([0, 1, 2, 3, 4]))
 console.log(reverseArrayInPlace([0, 1, 2, 3]))
+
+// A list
+function arrayToList(arr) {
+  let list = null
+  for (let i = arr.length - 1; i >= 0; i--)
+    list = { value: arr[i], rest: list }
+
+  return list
+}
+
+function listToArray(list) {
+  let arr = []
+  for (let node = list; node; node = node.rest)
+    arr.push(node.value)
+
+  return arr
+}
+
+function prepend(value, list) {
+  let newList = Object.assign(list)
+  return {value: value, rest: newList}
+}
+
+function ntn(list, index) {
+ let counter = 0
+ while (counter !== index && list != null) {
+   list = list.rest
+   counter += 1
+ }
+
+ return list != null ? list.value : undefined
+}
+
+function ntnRecursion(list, index) {
+  if (index === 0) return list.value
+  if (list == null) return undefined
+
+  return ntnRecursion(list.rest, index-1)
+}
+
+let list = arrayToList([1,2,3])
+console.log(list)
+console.log(listToArray(list))
+
+console.log(prepend(0, list))
+console.log(list)
+
+console.log(ntn(list, 1))
+console.log(ntnRecursion(list, 1))
