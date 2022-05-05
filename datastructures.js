@@ -343,3 +343,28 @@ console.log(list)
 
 console.log(ntn(list, 1))
 console.log(ntnRecursion(list, 1))
+
+// Deep comparison
+function deepEqual(v1, v2) {
+  if (v1 == null && v2 == null) return true
+  if (v1 == null && v2 != null) return false
+  if (v1 != null && v2 == null) return false
+
+  if (typeof v1 !== "object" && typeof v2 !== "object")
+    return v1 === v2
+
+  if (typeof v1 === "object" && typeof v2 === "object") {
+    let result = true
+    for (let key of Object.keys(v1)) {
+      result = result && deepEqual(v1[key], v2[key])
+    }
+    return result
+  } else {
+    return false
+  }
+}
+
+console.log("Expecting false: " + deepEqual(null, 1))
+console.log("Expecting true: " + deepEqual({v1: 1, v2: 2}, {v1: 1, v2: 2}))
+console.log("Expecting true: " + deepEqual(arrayToList([1, 2, 3]), arrayToList([1, 2, 3])))
+console.log("Expecting false: " + deepEqual(arrayToList([1, 2, 3]), arrayToList([1, 4, 3])))
