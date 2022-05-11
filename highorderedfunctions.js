@@ -59,3 +59,8 @@ console.log("reduce example: " + reduce([1, 2, 3, 4], (a, b) => a + b, 0))
 let numberArr = [1, 2, 3, 4, 5, 6, 6, 6, 7, 7]
 console.log(numberArr.some(e => e > 5))            // expecting true
 console.log(numberArr.findIndex(e => e == 6))      // expecting 5
+
+/* *************** Exercises *************** */ 
+// Flattening
+let twoDimArr = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+console.log(reduce(twoDimArr, (combine, arrElement) => combine.concat(arrElement), []))
