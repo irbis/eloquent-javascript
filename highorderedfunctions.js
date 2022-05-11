@@ -42,6 +42,10 @@ repeat(3, n => {
     - filter
     - map - content will have been mapped to a new form
     - reduce (sometimes also called 'fold') - computing single value from arrays' values
+    - some - takes a test function and tells you if then function returns true for any of the
+             elements in the array
+    findIndex - like indexOf, but instead of looking for a specific value, it finds the first
+             value for which given function returns true.
  */
 
 function reduce(array, combine, start) {
@@ -51,3 +55,7 @@ function reduce(array, combine, start) {
     return current
 }
 console.log("reduce example: " + reduce([1, 2, 3, 4], (a, b) => a + b, 0))
+
+let numberArr = [1, 2, 3, 4, 5, 6, 6, 6, 7, 7]
+console.log(numberArr.some(e => e > 5))            // expecting true
+console.log(numberArr.findIndex(e => e == 6))      // expecting 5
