@@ -64,3 +64,11 @@ console.log(numberArr.findIndex(e => e == 6))      // expecting 5
 // Flattening
 let twoDimArr = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 console.log(reduce(twoDimArr, (combine, arrElement) => combine.concat(arrElement), []))
+
+// You own loop
+function loop(startValue, testFunction, updateFunction, bodyFunction) {
+    for (let index = startValue; testFunction(index); index = updateFunction(index))
+        bodyFunction(index)
+}
+
+loop(0, i => i < 10, i => i + 1, console.log)
