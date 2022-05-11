@@ -72,3 +72,18 @@ function loop(startValue, testFunction, updateFunction, bodyFunction) {
 }
 
 loop(0, i => i < 10, i => i + 1, console.log)
+
+// Everything
+function everyUsingLoop(arr, test) {
+    for (let e of arr)
+        if (!test(e)) return false
+
+    return true
+}
+
+function everyUsingSome(array, predicate) {
+    return !array.some(element => !predicate(element));
+}
+
+console.log(everyUsingLoop([1, 1, 1, 1], e => e < 10))
+console.log(everyUsingSome([1, 1, 1, 1], e => e < 10))
