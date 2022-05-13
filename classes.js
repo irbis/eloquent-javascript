@@ -159,3 +159,26 @@ console.log(Object.keys({x: 1, y: 1}))
 console.log({x: 1}.hasOwnProperty("x"))
 console.log({x: 1}.hasOwnProperty("toString"))
 
+/* *************** Polymorphism *************** */
+Rabbit.prototype.toString = function() {
+    return `a ${this.type} rabbit`
+}
+console.log(String(weirdRabbit))
+
+// Symbols
+let sym = Symbol("name")
+console.log(sym == Symbol("name"))
+Rabbit.prototype[sym] = 55
+console.log(weirdRabbit[sym])
+
+const toStringSymbol = Symbol("toString")
+Array.prototype[toStringSymbol] = function() {
+    return `${this.length} cm of blue yarn`
+}
+console.log([1, 2].toString())
+console.log([1, 2][toStringSymbol]())
+
+let stringObject = {
+    [toStringSymbol]() { return "a jute rope" }
+}
+console.log(stringObject[toStringSymbol]())
