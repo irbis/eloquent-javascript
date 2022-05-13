@@ -122,3 +122,40 @@ console.log(p2.gender) // expecting 'underfined' - no property in the prototype
 // toString() method calls from Object prototype - output is different
 // to compare with [1, 2].toString()
 console.log(Object.prototype.toString.call([1, 2]))
+
+/* *************** Maps *************** */
+let ages = {
+    Boris: 39,
+    Liang: 22,
+    Julia: 62
+}
+
+console.log(`Julia is ${ages["Julia"]}`)
+console.log("Is Jack's age known?", "Jack" in ages)
+console.log("Is toString's age known?", "toString" in ages)
+
+/*
+   Because plain object - {} derives from Object it's dangerous to use it
+   as a Map.
+   To create object that is not deriving from Object:
+    Object.create(null)
+ */
+console.log("toString" in Object.create(null)) // expecting false - null is not an Object
+
+// More proper way is to use call Map
+let agesMap = new Map()
+agesMap.set("Boris", 39)
+agesMap.set("Liang", 22)
+agesMap.set("Julia", 62)
+
+console.log(`Julia is ${agesMap.get("Julia")}`)
+console.log("Is Jack's age known?", agesMap.has("Jack"))
+console.log("Is toString's age known?", agesMap.has("toString"))
+console.log(Object.getPrototypeOf(agesMap) == Map.prototype)
+
+// to get list of keys - Object.keys() to read all keys
+// Object.hasOwnProperty() - to check if key is exist
+console.log(Object.keys({x: 1, y: 1}))
+console.log({x: 1}.hasOwnProperty("x"))
+console.log({x: 1}.hasOwnProperty("toString"))
+
