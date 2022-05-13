@@ -84,5 +84,41 @@ let killerRabbit1 = new RabbitClass("killer")
 let blackRabbit = new RabbitClass("black")
 
 // class can be used both in statement and in expression positions.
+// anonymous class
 let object = new class { getWorld() { return "hello" }}
 console.log(object.getWorld())
+
+// in case of having internal variable
+class Person {
+    constructor(id, firstname = "unspecified", lastname = "unspecified") {
+        this.id = id
+        this.firstname = firstname
+        this.lastname = lastname
+    }
+
+    birthYear = 1990
+
+    fullname() {
+        return `${firstname} ${lastname}`
+    }
+}
+
+let p1 = new Person(1)
+let p2 = new Person(2, "FTest", "LTest")
+console.log(p2.birthYear)
+p2.birthYear = 1993
+console.log(p2.birthYear)
+console.log(Object.getPrototypeOf(Person))
+console.log(Object.getPrototypeOf(p2) == Person.prototype)
+
+Person.prototype.status = "Active" // property was defined at prototype
+p1.status = "Inactive"
+console.log(p1.status) // expecting 'Inactive' as p1 overrides property "status"
+console.log(p2.status) // expecting 'Active' from Person prototype
+p1.gender = "M"
+console.log(p1.gender) // expecting 'M' - new property was added
+console.log(p2.gender) // expecting 'underfined' - no property in the prototype
+
+// toString() method calls from Object prototype - output is different
+// to compare with [1, 2].toString()
+console.log(Object.prototype.toString.call([1, 2]))
