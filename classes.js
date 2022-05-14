@@ -290,3 +290,29 @@ let temp = new Temperature(22)
 console.log(temp.fahrenheit)
 temp.fahrenheit = 86
 console.log(temp.celsius)
+
+// Inheritance
+class SymmetricMatrix extends Matrix {
+    constructor(size, element = (x, y) => undefined) {
+        super(size, size, (x, y) => {
+            if (x < y) return element(y, x)
+            else       return element(x, y)
+        })
+    }
+
+    set(x, y, value) {
+        super.set(x, y, value)
+        if (x != y) {
+            super.set(y, x, value)
+        }
+    }
+}
+
+let symmetricMatrix = new SymmetricMatrix(5, (x, y) => `${x},${y}`)
+console.log(symmetricMatrix.get(2, 3))
+
+// The instanceof operator
+console.log(new SymmetricMatrix(2) instanceof SymmetricMatrix) // --> should be true
+console.log(new SymmetricMatrix(2) instanceof Matrix) // --> should be true
+console.log(new Matrix(2, 2) instanceof SymmetricMatrix) // --> should be false
+console.log([1] instanceof Array) // --> should be true
