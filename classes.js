@@ -252,3 +252,41 @@ let matrix = new Matrix(2, 2, (x, y) => `value ${x},${y}`)
 for (let { x, y, value } of matrix) {
     console.log(x, y, value)
 }
+
+// Getters, setters and statics
+
+// defines getter
+let varyingSize = {
+    get size() {
+        return Math.floor(Math.random() * 100)
+    }
+}
+
+console.log(varyingSize.size)
+console.log(varyingSize.size)
+
+class Temperature {
+    constructor(celsius) {
+        this.celsius = celsius
+    }
+
+    get fahrenheit() { // <-- getter
+        return this.celsius * 1.8 + 32
+    }
+    set fahrenheit(value) { // <-- setter
+        this.celsius = Temperature._toCelcius(value)
+    }
+    
+    static _toCelcius(value) {
+        return (value - 32) / 1.8
+    }
+    
+    static fromFahrenheit(value) { // <-- static
+        return new Temperature(Temperature._toCelcius(value))
+    }
+}
+
+let temp = new Temperature(22)
+console.log(temp.fahrenheit)
+temp.fahrenheit = 86
+console.log(temp.celsius)
