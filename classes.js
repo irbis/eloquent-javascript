@@ -369,6 +369,10 @@ class Group {
 
         return new Group(arr)
     }
+
+    [Symbol.iterator]() {
+        return new GroupIterator(this)
+    }
 }
 
 let group = Group.from([10, 20]) 
@@ -379,3 +383,23 @@ group.add(10)
 group.delete(10)
 console.log(group.has(10))
 console.log(group)
+
+// Iterable Groups
+class GroupIterator {
+    constructor(group) {
+        this.index = 0
+        this.group = group
+    }
+
+    next() {
+        if (this.index >= this.group.arr.length) return { done: true }
+
+        let value = this.group.arr[this.index]
+        this.index = this.index + 1
+
+        return { value, done: false}
+    }
+}
+
+for (let value of Group.from(["a", "b", "c"]))
+    console.log(value)
