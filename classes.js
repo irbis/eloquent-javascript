@@ -316,3 +316,30 @@ console.log(new SymmetricMatrix(2) instanceof SymmetricMatrix) // --> should be 
 console.log(new SymmetricMatrix(2) instanceof Matrix) // --> should be true
 console.log(new Matrix(2, 2) instanceof SymmetricMatrix) // --> should be false
 console.log([1] instanceof Array) // --> should be true
+
+/* *************** Exercises  *************** */
+// A Vector Type
+class Vector {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+    }
+
+    plus(vector) {
+        return new Vector(this.x + vector.x, this.y + vector.y)
+    }
+
+    minus(vector) {
+        return new Vector(this.x - vector.x, this.y - vector.y)
+    }
+
+    get length() {
+        return Math.sqrt(this.x * this.x + this.y * this.y)
+    }
+}
+
+console.log(new Vector(1, 2).plus(new Vector(2, 3)))
+console.log(new Vector(1, 2).minus(new Vector(2, 3)))
+console.log(new Vector(3, 4).length)
+
+ 
