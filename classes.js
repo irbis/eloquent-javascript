@@ -342,4 +342,40 @@ console.log(new Vector(1, 2).plus(new Vector(2, 3)))
 console.log(new Vector(1, 2).minus(new Vector(2, 3)))
 console.log(new Vector(3, 4).length)
 
- 
+// Groups
+class Group {
+    constructor(arr = []) {
+        this.arr = arr
+    }
+
+    add(element) {
+        if (!this.has(element))
+            this.arr.push(element)
+    }
+
+    delete(element) {
+        this.arr = this.arr.filter( e => e !== element)
+    }
+
+    has(element) {
+        return this.arr.includes(element)
+    }
+
+    // method is expecting that range does not contain repatable values
+    static from(range) {
+        let arr = []
+        for (let e of range)
+            arr.push(e)
+
+        return new Group(arr)
+    }
+}
+
+let group = Group.from([10, 20]) 
+console.log(group)
+console.log(group.has(10))
+console.log(group.has(30))
+group.add(10)
+group.delete(10)
+console.log(group.has(10))
+console.log(group)
