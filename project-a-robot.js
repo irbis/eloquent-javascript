@@ -179,3 +179,34 @@ function compareRobots(robot1, memory1, robot2, memory2) {
 }
 
 compareRobots(routeRobot, [], goalOrientedRobot, [])
+
+// Persistent Group
+class PGroup {
+    constructor(arr) {
+        this.arr = arr
+    }
+
+    add(element) {
+       if (this.has(element)) return this
+       return new PGroup(this.arr.concat([element]))
+    }
+
+    delete(value) {
+        if (!this.has(value)) return this
+        return new PGroup(this.arr.filter(e => e !== value))
+    }
+
+    has(element) {
+        return this.arr.includes(element)
+    }
+}
+
+PGroup.empty = new PGroup([])
+
+let a = PGroup.empty.add("a")
+let ab = a.add("b")
+let b = ab.delete("a")
+
+console.log(b.has("b")) // expecting true
+console.log(a.has("b")) // expecting false
+console.log(b.has("a")) // expecting false
