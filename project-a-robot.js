@@ -69,7 +69,6 @@ let cabin = next.move("Cabin")
 console.log(cabin.place)
 console.log(cabin.parcels)
 
-
 function runRobot(state, robot, memory) {
     for (let turn = 0;; turn++) {
         if (state.parcels.length == 0){
@@ -83,7 +82,6 @@ function runRobot(state, robot, memory) {
         console.log(`Move to ${action.direction}`)
     }
 }
-
 
 function randomPick(array) {
     let choice = Math.floor(Math.random() * array.length)
@@ -153,3 +151,31 @@ function goalOrientedRobot({place, parcels}, route) {
 
 console.log('******************** Run goal oriented robot ********************')
 runRobot(VillageState.random(), goalOrientedRobot, [])
+
+/* *************** Exercises *************** */
+// Measuring a Robot
+function runRobotMeasure(state, robot, memory) {
+    for (let turn = 0;; turn++) {
+        if (state.parcels.length == 0) return turn
+
+        let action = robot(state, memory)
+        state = state.move(action.direction)
+        memory = action.memory
+    }
+}
+
+const NUMBER_OF_TASKS = 100
+function compareRobots(robot1, memory1, robot2, memory2) {
+    let robot1Measure = 0
+    let robot2Measure = 0
+    for (let i = 1; i < NUMBER_OF_TASKS; i++) {
+        let state = VillageState.random()
+        robot1Measure += runRobotMeasure(state, robot1, memory1)
+        robot2Measure += runRobotMeasure(state, robot2, memory2)
+    }
+
+    console.log(`Measure for robot1: ${robot1Measure / NUMBER_OF_TASKS}`)
+    console.log(`Measure for robot1: ${robot2Measure / NUMBER_OF_TASKS}`)
+}
+
+compareRobots(routeRobot, [], goalOrientedRobot, [])
