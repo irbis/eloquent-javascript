@@ -36,3 +36,28 @@ try {
 } catch (error) {
     console.log("Something went wrong: " + error)
 }
+
+/* *************** Exercises ****************/
+// Retry
+class MultiplicatorUnitFailure extends Error {}
+
+function primitiveMultiply(a, b) {
+    if (Math.random() < 0.2) {
+        return a * b
+    } else {
+        throw new MultiplicatorUnitFailure("Klunk")
+    }
+}
+
+function reliableMutiply(a, b) {
+    const tryNumbers = 100
+    for (let i = 0; i < tryNumbers; i++) {
+        try {
+            return primitiveMultiply(a, b)
+        } catch (e) {
+        }
+    }
+    throw new Error("Number of tries were exceded!")
+}
+
+console.log(reliableMutiply(8, 8))
