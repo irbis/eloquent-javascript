@@ -198,3 +198,7 @@ verify(/\w{7}/,
 verify(/\b[^\We]\b/i,
     ["red platypus", "wobbling nest"],
     ["earth bed", "learning ape", "BEET"]);
+
+// Quoting style
+let quotingText = "'I'm the cook,' he said, 'it's my job.'"
+console.log(quotingText.replace(/(^|\W)'|'(\W|$)/g, '"'))
