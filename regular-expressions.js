@@ -75,6 +75,8 @@ console.log(animalCount.test("15 pigchickens")) // <-- expecting false
 console.log("papa".replace("p", "m"))
 console.log("Borobudur".replace(/[ou]/, "a"))
 console.log("Borobudur".replace(/[ou]/g, "a"))
+// alternative variant with RegExp constructor
+console.log("Borobudur".replace(new RegExp("[ou]", "g"), "a"))
 
 console.log(
     "Liskov, Barbara\nMcCarthy, John\nWadler, Philip"
@@ -86,9 +88,9 @@ console.log(s.replace(/\b(fbi|cia)\b/g, str => str.toUpperCase()))
 let stock = "1 lemon, 2 cabbages, and 101 eggs"
 function minusOne(match, amount, unit) {
     amount = Number(amount) - 1
-    if (amount == 1) {
+    if (amount === 1) {
         unit = unit.slice(0, unit.length - 1)
-    } else if (amount == 0) {
+    } else if (amount === 0) {
         amount = "no"
     }
 
@@ -109,5 +111,40 @@ let specialRegexp = new RegExp("\\b" + escaped + "\\b", "gi")
 console.log(textForSpecial.replace(specialRegexp, "_$&_"))
 
 // The Search Method
-console.log("  word".search(/\S/))
-console.log("      ".search(/\S/))
+console.log("  word".search(/\S/)) // <-- expecting 2
+console.log("      ".search(/\S/)) // <-- expecting -1
+
+// The LastIndex property
+let pattern = /y/g
+console.log(pattern.lastIndex)
+pattern.lastIndex = 3
+let matchLastIndex = pattern.exec("xyzzy")
+console.log(matchLastIndex.index) // <-- expecting 4
+console.log(pattern.lastIndex) // <-- expecting 5
+
+let global = /abc/g
+console.log(global.exec("xyz abc"))
+let sticky = /abc/y
+console.log(sticky.exec("xyz abc"))
+// previous search returns null as because string does not start from "abc"
+// where lastIndex points as a default value
+// To fix this, lastIndex has to be set to 4
+sticky.lastIndex = 4
+console.log(sticky.exec("xyz abc")) // <-- expecting found
+
+// lastIndex updates automatically during search
+let digit = /\d/g
+console.log(digit.exec("here it is: 1")) // <-- found 1
+console.log(digit.lastIndex) // <-- expecting 13
+console.log(digit.exec("and now: 1")) // returns null
+
+console.log("Banana".match(/an/g)) // <-- with global option returns array
+// with two elements
+
+// Looping over matches
+let input = "A string with 3 numbers in it... 42 and 88."
+let number = /\b\d+\b/g
+let matchLoop
+// the below is possible because lastIndex updates accordinaly
+while (matchLoop = number.exec(input))
+  console.log(`Found ${matchLoop[0]}, at ${matchLoop.index}`)
