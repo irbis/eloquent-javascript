@@ -10,5 +10,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "date-names": "^0.1.13",
+    "ini": "^3.0.0",
+    "ordinal": "^1.0.3"
+  }
 }
