@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>My home page</title>
@@ -27,6 +27,23 @@
 <p data-classified="secret">The launch code is 00000000.</p>
 <p data-classified="unclassified">I have to feet.</p>
 
+<p style="border: 3px solid red" id="boxedPara">
+    I'm boxed in
+</p>
+
+<p><span id="one"></span></p>
+<p><span id="two"></span></p>
+
+<p id="paraStyle" style="color: purple">
+    Nice text
+</p>
+
+<p>And if you go chasing <span class="animal">rabbits</span></p>
+<p>And you know you're going to fall</p>
+<p>Tell 'em a <span class="character">hookah smoking</span>
+    <span class="animal">caterpillar</span></span></p>
+<p>Has given you the call</p>
+
 <p><input type="button" onclick="console.log(talksAbout(document.body, 'book'))"
        value="Run talksAbout()"/></p>
 
@@ -47,6 +64,18 @@
 
 <p><input type="button" onclick="changeAttributes()"
           value="Run changeAttributes()"/></p>
+
+<p><input type="button" onclick="boxedSize()"
+          value="Run boxedSize()"/></p>
+
+<p><input type="button" onclick="createPixels()"
+          value="Run createPixels()"/></p>
+
+<p><input type="button" onclick="changeStyle()"
+          value="Run changeStyle()"/></p>
+
+<p><input type="button" onclick="runCountSelector()"
+          value="Run runCountSelector()"/></p>
 
 </body>
 <script>
@@ -114,6 +143,51 @@
                 para.remove()
             }
         }
+    }
+
+    function boxedSize() {
+        let para = document.getElementById("boxedPara")
+        console.log("clientHeight:", para.clientHeight)
+        console.log("offsetHeight:", para.offsetHeight)
+        console.log("rect:", para.getBoundingClientRect())
+    }
+
+    function time(name, action) {
+        let start = Date.now()
+        action()
+        console.log(name, "took", Date.now() - start, "ms")
+    }
+
+    function createPixels() {
+        time("naive", () => {
+            let target = document.getElementById("one")
+            while (target.offsetWidth < 2000)
+                target.appendChild(document.createTextNode("X"))
+        })
+
+        time("clever", function () {
+            let target = document.getElementById("two")
+            target.appendChild(document.createTextNode("XXXXX"))
+            let total = Math.ceil(2000 / (target.offsetWidth / 5))
+            target.firstChild.nodeValue = "X".repeat(total)
+        })
+    }
+
+    function changeStyle() {
+        let para = document.getElementById("paraStyle")
+        console.log(para.style.color)
+        para.style.color = "magenta"
+    }
+
+    function count(selector) {
+        return document.querySelectorAll(selector).length
+    }
+
+    function runCountSelector() {
+        console.log(count("p"))
+        console.log(count(".animal"))
+        console.log(count("p animal"))
+        console.log(count("p > .animal"))
     }
 </script>
 </html>
