@@ -51,6 +51,11 @@
 <h1>Mountains</h1>
 <div id="mountains"></div>
 
+<div id="ex2">
+    <h1>Heading with a <span>span</span> element.</h1>
+    <p>A paragraph with <span>one</span>, <span>two</span> spans.</p>
+</div>
+
 <p><input type="button" onclick="console.log(talksAbout(document.body, 'book'))"
        value="Run talksAbout()"/></p>
 
@@ -89,6 +94,9 @@
 
 <p><input type="button" onclick="buildMountainsTable()"
           value="Run buildMountainsTable()"/></p>
+
+<p><input type="button" onclick="runByTagName()"
+          value="Run runByTagName()"/></p>
 
 </body>
 <script>
@@ -253,6 +261,29 @@
 
         document.getElementById("mountains").appendChild(table)
         alignRightNumbers()
+    }
+
+    // Exercises: Elements by Tag Name
+    function byTagName(node, tagName) {
+        let found = []
+        tagName = tagName.toUpperCase()
+
+        function explore(node) {
+            node.childNodes.forEach(child => {
+                if (child.nodeType == document.ELEMENT_NODE) {
+                    if (child.nodeName == tagName) found.push(child)
+                    explore(child)
+                }
+            })
+        }
+
+        explore(node)
+        return found
+    }
+
+    function runByTagName() {
+        console.log(byTagName(document.getElementById("ex2"), "h1").length)
+        console.log(byTagName(document.getElementById("ex2"), "span").length)
     }
 </script>
 </html>
