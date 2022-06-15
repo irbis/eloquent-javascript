@@ -48,6 +48,9 @@
     <img id="cat2" src="https://placekitten.com/g/200/300" style="position: relative">
 </p>
 
+<h1>Mountains</h1>
+<div id="mountains"></div>
+
 <p><input type="button" onclick="console.log(talksAbout(document.body, 'book'))"
        value="Run talksAbout()"/></p>
 
@@ -83,6 +86,9 @@
 
 <p><input type="button" onclick="runAnimation()"
           value="Run runAnimation()"/></p>
+
+<p><input type="button" onclick="buildMountainsTable()"
+          value="Run buildMountainsTable()"/></p>
 
 </body>
 <script>
@@ -208,6 +214,45 @@
             requestAnimationFrame(newTime => animate(newTime, time))
         }
         requestAnimationFrame(animate)
+    }
+
+    const MOUNTAINS = [
+        {name: "Kilimanjaro", height: 5895, place: "Tanzania"},
+        {name: "Everest", height: 8848, place: "Nepal"},
+        {name: "Mount Fuji", height: 3776, place: "Japan"},
+        {name: "Vaalserberg", height: 323, place: "Netherlands"},
+        {name: "Denali", height: 6168, place: "United States"},
+        {name: "Popocatepetl", height: 5465, place: "Mexico"},
+        {name: "Mont Blanc", height: 4808, place: "Italy/France"}
+    ]
+
+    function buildTableRow(row, col, rowValues) {
+        let header = document.createElement(row)
+        rowValues.forEach(rowValue => {
+            let th = document.createElement(col)
+            th.appendChild(document.createTextNode(rowValue))
+            header.appendChild(th)
+        })
+
+        return header
+    }
+
+    function alignRightNumbers() {
+        Array.from(document.querySelectorAll("td")).forEach(td => {
+            if (!Number.isNaN(td.innerText)) td.style.textAlign="right" })
+    }
+
+    // Exercises: Build a Table
+    function buildMountainsTable() {
+        let table = document.createElement("table")
+        // header
+        table.appendChild(buildTableRow("tr", "th", Object.keys(MOUNTAINS[0])))
+        // rows
+        MOUNTAINS.forEach(mountain =>
+            table.appendChild(buildTableRow("tr", "td", Object.values(mountain))))
+
+        document.getElementById("mountains").appendChild(table)
+        alignRightNumbers()
     }
 </script>
 </html>
