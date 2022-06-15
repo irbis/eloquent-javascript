@@ -44,6 +44,10 @@
     <span class="animal">caterpillar</span></span></p>
 <p>Has given you the call</p>
 
+<p style="text-align: center">
+    <img id="cat2" src="https://placekitten.com/g/200/300" style="position: relative">
+</p>
+
 <p><input type="button" onclick="console.log(talksAbout(document.body, 'book'))"
        value="Run talksAbout()"/></p>
 
@@ -76,6 +80,9 @@
 
 <p><input type="button" onclick="runCountSelector()"
           value="Run runCountSelector()"/></p>
+
+<p><input type="button" onclick="runAnimation()"
+          value="Run runAnimation()"/></p>
 
 </body>
 <script>
@@ -188,6 +195,19 @@
         console.log(count(".animal"))
         console.log(count("p animal"))
         console.log(count("p > .animal"))
+    }
+
+    function runAnimation() {
+        let cat = document.getElementById("cat2")
+        let angle = Math.PI / 2
+        function animate(time, lastTime) {
+            if (lastTime != null)
+                angle += (time - lastTime) * 0.001
+            cat.style.top = (Math.sin(angle) * 20) + "px"
+            cat.style.left = (Math.cos(angle) * 200) + "px"
+            requestAnimationFrame(newTime => animate(newTime, time))
+        }
+        requestAnimationFrame(animate)
     }
 </script>
 </html>
