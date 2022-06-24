@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <title>A Platform Game</title>
     <link rel="stylesheet" href="project-a-platform-game.css"/>
+    <script src="https://eloquentjavascript.net/2nd_edition/code/game_levels.js"></script>
     <script src="project-a-platform-game.js"></script>
 </head>
 <body>
 </body>
 <script>
-  let simpleLevel = new Level(simpleLevelPlan)
-  let display = new DOMDisplay(document.body, simpleLevel)
-  display.syncState(State.start(simpleLevel))
+    runGame([simpleLevelPlan], DOMDisplay)
 </script>
 </html>
