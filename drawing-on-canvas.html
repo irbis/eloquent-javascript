@@ -26,6 +26,10 @@
 <p>
     <canvas id="textCanvas"></canvas>
 </p>
+<p><canvas id="imageCanvas"></canvas></p>
+<p><canvas id="animationCanvas"></canvas></p>
+<p><canvas id="mirroredCanvas"></canvas></p>
+<p><canvas id="storeClearCanvas"></canvas></p>
 </body>
 <script>
     function fillCircleToCyan() {
@@ -94,5 +98,65 @@
     textCx.font = "28px Georgia"
     textCx.fillStyle = "fuchsia"
     textCx.fillText("I can draw text, too!", 10, 50)
+
+    //images
+    let imageCx = document.getElementById("imageCanvas").getContext("2d")
+    let img = document.createElement("img")
+    img.src = "https://eloquentjavascript.net/img/hat.png"
+    img.addEventListener("load", () => {
+        for (let x = 10; x < 200; x += 30)
+            imageCx.drawImage(img, x, 10)
+    })
+
+    // animation
+    let animationCx = document.getElementById("animationCanvas").getContext("2d")
+    let animationImg = document.createElement("img")
+    animationImg.src = "https://eloquentjavascript.net/img/player.png"
+    let spriteW = 24
+    let spriteH = 30
+    animationImg.addEventListener("load", () => {
+        let cycle = 0
+        setInterval(() => {
+            animationCx.clearRect(0, 0, spriteW, spriteH)
+            animationCx.drawImage(animationImg,
+                // source rectangle
+                cycle * spriteW, 0, spriteW, spriteH,
+                // destination rectangle
+                0,               0, spriteW, spriteH)
+            cycle = (cycle + 1) % 8
+        }, 120)
+    })
+
+    function flipHorizontally(context, around) {
+        context.translate(around, 0)
+        context.scale(-1, 1)
+        context.translate(-around, 0)
+    }
+    let mirroredCx = document.getElementById("mirroredCanvas").getContext("2d")
+    let mirroredImg = document.createElement("img")
+
+    animationImg.src = "https://eloquentjavascript.net/img/player.png"
+    animationImg.addEventListener("load", () => {
+        flipHorizontally(mirroredCx, 100 + spriteW / 2)
+        animationCx.drawImage(mirroredImg, 0, 0, spriteW, spriteH,
+                                         100, 0, spriteW, spriteH)
+    })
+
+    // storing and clearing transformations
+    let storeCleanCx =
+        document.getElementById("storeClearCanvas").getContext("2d")
+    function branch(length, angle, scale) {
+        storeCleanCx.fillRect(0, 0, 1, length)
+        if (length < 8) return
+        storeCleanCx.save()
+        storeCleanCx.translate(0, length)
+        storeCleanCx.rotate(-angle)
+        branch(length * scale, angle, scale)
+        storeCleanCx.rotate(2 * angle)
+        branch(length * scale, angle, scale)
+        storeCleanCx.restore()
+    }
+    storeCleanCx.translate(300, 0)
+    branch(60, 0.5, 0.8)
 </script>
 </html>
