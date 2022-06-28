@@ -91,7 +91,7 @@ Player.prototype.update = function (time, state, keys) {
     let ySpeed = this.speed.y + time * gravity
     let movedY = pos.plus(new Vec(0, ySpeed * time))
     if (!state.level.touches(movedY, this.size, "wall")) {
-        pos = movedX
+        pos = movedY
     } else if (keys.ArrowUp && ySpeed > 0) {
         ySpeed = -jumpSpeed
     } else {
@@ -239,7 +239,7 @@ DOMDisplay.prototype.syncState = function (state) {
     this.scrollPlayerIntoView(state)
 }
 
-DOMDisplay.prototype.scrollPlayerIntoView= function (state) {
+DOMDisplay.prototype.scrollPlayerIntoView = function (state) {
     let width = this.dom.clientWidth
     let height = this.dom.clientHeight
     let margin = width / 3
