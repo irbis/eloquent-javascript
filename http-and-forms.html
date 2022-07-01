@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+Please open console to see an execution results.
+
+<div>
+    <input type="text" id="focusTest">
+</div>
+
+<div>
+    <button>I'm all right</button>
+    <button disabled>I'm out</button>
+</div>
+
+<div>
+    <form action="submit.html" id="testForm">
+        Name: <input type="text" name="name"><br>
+        Password: <input type="password" name="password"><br>
+        <button type="submit">Log in</button>
+    </form>
+</div>
+
+<div>
+    <textarea id="testTextarea"></textarea>
+</div>
+
+<div>
+    <input type="text" id="lengthText"> length: <span id="length">0</span>
+</div>
+</body>
+<script>
+    fetch(
+        "http-and-forms.html",
+        { method: 'GET' } // by default, can be omitted in case of GET
+    ).then(response => {
+        console.log(response.status)
+        console.log(response.headers.get("Content-Type"))
+    })
+
+    fetch( "http-and-forms.html" )
+    .then(resp => resp.text())
+    .then(text => console.log(text))
+
+    document.getElementById("focusTest").focus()
+    console.log(document.activeElement.tagName) // --> INPUT
+
+    document.getElementById("focusTest").blur()
+    console.log(document.activeElement.tagName) // --> BODY
+
+    let testForm = document.getElementById("testForm")
+    console.log(testForm.elements[1].type) // --> password
+    console.log(testForm.elements.password.type) // --> password
+    console.log(testForm.elements.name.form == testForm) // --> true
+
+    testForm.addEventListener("submit", event => {
+        console.log("Saving value", testForm.elements.value.value)
+        event.preventDefault()
+    })
+
+    let textarea = document.querySelector("textarea")
+    textarea.addEventListener("keydown", event => {
+        // The key code for F2 happens to be 113
+        if (event.code == 'F2') {
+            replaceSelection(textarea, "Khasekhemwy")
+            event.preventDefault()
+        }
+
+        function replaceSelection(field, word) {
+            let from = field.selectionStart
+            let to = field.selectionEnd
+            field.value = field.value.slice(0, from) + word +
+                field.value.slice(to)
+            // Put the cursor after the word
+            field.selectionStart = from + word.length
+            field.selectionEnd = from + word.length
+        }
+    })
+
+    let lengthText = document.querySelector("#lengthText")
+    let output = document.querySelector("#length")
+    lengthText.addEventListener("input", () => {
+        output.textContent = lengthText.value.length
+    })
+</script>
+</html>
