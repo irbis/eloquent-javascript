@@ -29,6 +29,35 @@ Please open console to see an execution results.
 <div>
     <input type="text" id="lengthText"> length: <span id="length">0</span>
 </div>
+
+<div>
+    <label><input type="checkbox" id="purple"> Make this page purple</label>
+</div>
+
+<div>
+ Color:
+    <label><input type="radio" name="color" value="orange"> Orange</label>
+    <label><input type="radio" name="color" value="lightgreen"> Green</label>
+    <label><input type="radio" name="color" value="lightblue"> Blue</label>
+</div>
+
+<div>
+    <select multiple>
+        <option value="1">0001</option>
+        <option value="2">0010</option>
+        <option value="4">0100</option>
+        <option value="8">1000</option>
+    </select> = <span id="outputSelect">0</span>
+</div>
+
+<div>
+    <input type="file" id="fileTest">
+</div>
+
+<div>
+    <label><input type="file" id="fileReadTest">File read</label>
+</div>
+
 </body>
 <script>
     fetch(
@@ -82,6 +111,52 @@ Please open console to see an execution results.
     let output = document.querySelector("#length")
     lengthText.addEventListener("input", () => {
         output.textContent = lengthText.value.length
+    })
+
+    let purpleCheckbox = document.querySelector("#purple")
+    purpleCheckbox.addEventListener("change", () => {
+        document.body.style.background =
+            purpleCheckbox.checked ? "mediumpurple" : ""
+    })
+
+    let buttons = document.querySelectorAll("[name=color]")
+    for (let button of Array.from(buttons))
+        button.addEventListener("change", () => {
+            document.body.style.background = button.value
+        })
+
+    let select = document.querySelector("select")
+    let outputSelect = document.querySelector("#outputSelect")
+    select.addEventListener("change", () => {
+        let number = 0
+        for (let option of Array.from(select.options))
+            if (option.selected) number += Number(option.value)
+
+        outputSelect.textContent = number
+    })
+
+    let fileTest = document.querySelector("#fileTest")
+    fileTest.addEventListener("change", () => {
+        if (fileTest.files.length > 0) {
+            let file = fileTest.files[0]
+            console.log("You chose", file.name)
+            if (file.type) console.log("It has type", file.type)
+        }
+    })
+
+    let fileReadTest = document.querySelector("#fileReadTest")
+    fileReadTest.addEventListener("change", () => {
+        Array.from(fileReadTest.files).forEach(file => {
+            let reader = new FileReader()
+            reader.addEventListener("load", () => {
+                console.log("File", file.name, "starts with",
+                    reader.result.slice(0, 20))
+            })
+            reader.addEventListener("error", () => {
+                console.log("Error while reading the file: ", reader.error)
+            })
+            reader.readAsText(file)
+        })
     })
 </script>
 </html>
