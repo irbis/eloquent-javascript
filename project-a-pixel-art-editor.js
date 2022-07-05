@@ -185,7 +185,7 @@ function rectangle(start, state, dispath) {
         dispath( {picture: state.picture.draw(drawn)} )
     }
     drawRectangle(start)
-    return drawRectangle()
+    return drawRectangle
 }
 
 const around = [
