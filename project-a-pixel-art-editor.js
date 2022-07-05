@@ -211,6 +211,7 @@ function fill({x, y}, state, dispatch) {
             }
         }
     }
+    dispatch( { picture: state.picture.draw(drawn) } )
 }
 
 function pick(pos, state, dispatch) {
