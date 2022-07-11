@@ -43,7 +43,7 @@ router.add("GET", talkPath, async (server, title) => {
     if (title in server.talks) {
         return {
             body: JSON.stringify(server.talks[title]),
-            headers: { "Content-Type": "application/json"}
+            headers: { "Content-Type": "application/json" }
         }
     } else {
         return {
@@ -169,9 +169,7 @@ SkillShareServer.prototype.waitForChanges = function (time) {
         setTimeout(() => {
             if (!this.waiting.includes(resolve)) return
             this.waiting = this.waiting.filter(r => r != resolve)
-            resolve({
-                status: 304,
-            }, time * 1000)
+            resolve({ status: 304 }, time * 1000)
         })
     })
 }

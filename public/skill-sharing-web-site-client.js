@@ -41,17 +41,29 @@ function talkURL(title) {
 }
 
 function reportError(error) {
+    console.log(error)
     alert(String(error))
 }
 
 function renderUserField(name, dispatch) {
-    return elt("label", {}, "Your name: ", elt("input", {
-        type: "text",
-        value: name,
-        onchange(event) {
-            dispatch({type: "setUser", user: event.target.value})
-        }
+    return elt("label", {}, "Your name: ",
+        elt("input", {
+            type: "text",
+            value: name,
+            onchange(event) {
+                dispatch({type: "setUser", user: event.target.value})
+            }
     }))
+}
+
+function elt(type, props, ...children) {
+    let dom = document.createElement(type)
+    if (props) Object.assign(dom, props)
+    for (let child of children) {
+        if (typeof child != "string") dom.appendChild(child)
+        else dom.appendChild(document.createTextNode(child))
+    }
+    return dom
 }
 
 function renderTalk(talk, dispatch) {
@@ -70,7 +82,7 @@ function renderTalk(talk, dispatch) {
         elt("form", {
             onsubmit(event) {
                 event.preventDefault()
-                let from = event.target
+                let form = event.target
                 dispatch(
                     {
                         type: "newComment",
@@ -85,13 +97,12 @@ function renderTalk(talk, dispatch) {
 }
 
 function renderComment(comment) {
-    return
-        elt("p", {className: "comment"},
+    return elt("p", {className: "comment"},
         elt("strong", null, comment.author),
         ": ", comment.message)
 }
 
-function renderTalkFrom(dispath) {
+function renderTalkForm(dispath) {
     let title = elt("input", {type: "text"})
     let summary = elt("input", {type: "text"})
     return elt("form", {
